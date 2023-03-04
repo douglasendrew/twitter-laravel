@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="col-12">
-                        <a class="btn btn-info w-100"
+                        <a class="btn btn-info w-100 text-white"
                             href="/singin">Efetuar Login</a>
                     </div>
 

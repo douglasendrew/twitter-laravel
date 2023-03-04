@@ -5,22 +5,22 @@
     use App\Http\Controllers\Controller;
     use Illuminate\Support\Facades\Auth;
     use App\Models\PublicationsModel;
+    use App\Http\Controllers\Feed\User;
 
-    class Feed extends Controller {
-        
+    class Feed extends Controller
+    {
+
         public function index()
         {
+            $publications = new PublicationsModel();
+            $pubs = $publications->getPublicationsFromIFollow();
 
-            if(auth()->check())
-            {
-                $publications = new PublicationsModel();
-                $pubs = $publications->getPublicationsFromIFollow();
+            $name = Auth::user()->name;
 
-                $name = Auth::user()->name;
-                return view('feed.feed', ['name' => $name, 'publications' => $pubs]);
+            if (empty((new User)->getArrobaUser())) {
+                return redirect('/profile/me');
             }
 
-            return redirect('/singin');
+            return view('feed.feed', ['name' => $name, 'publications' => $pubs]);
         }
-
     }

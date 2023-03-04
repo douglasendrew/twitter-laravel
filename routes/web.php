@@ -17,6 +17,7 @@ use App\Http\Controllers\Feed\Feed;
 use App\Http\Controllers\Feed\Publication;
 use App\Http\Controllers\Login\LoginUser;
 use App\Http\Controllers\Main;
+use App\Http\Controllers\Feed\Profile;
 
 
 // Routes of singup of user
@@ -41,18 +42,32 @@ Route::prefix('/singin')->group(function() {
 });
 
 
+// Routes of my profile and users profile
+Route::prefix('/profile')->group(function() {
+
+    Route::get('/me', [Profile::class, 'myProfile'])
+        ->name('my-profile')->middleware('auth');
+
+});
+
+
 // Index
 Route::get('/', function() {
-    if(auth()->check())
-    {
-        return redirect('/feed');
-    }
-    return redirect('/singin');
-})->name('index');
+    return redirect('/feed');
+})->name('index')
+    ->middleware('auth');
 
 
 // Publications feed
-Route::get('/feed', [Feed::class, 'index']);
+Route::get('/feed', [Feed::class, 'index'])
+    ->name('feed')
+    ->middleware('auth');
+
+    
+// Route for middleware
+Route::get('login', function() {
+    return redirect('/singin');
+})->name('login');
 
 
 // Rotas para publicaçoes

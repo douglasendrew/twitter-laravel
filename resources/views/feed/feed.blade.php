@@ -4,8 +4,8 @@
 {{-- Page Title --}}
 @section('title', 'Home')
 
-@section('content')
 
+@section('content')
     <div class="container d-flex align-items-center justify-content-center">
         <div class="mt-2" 
             style="max-width: 700px">
